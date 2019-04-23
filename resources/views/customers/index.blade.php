@@ -138,16 +138,6 @@
                 <div class="breadcrumb-item">DataTables</div>
             </div>
         </div>
-        <div class="dropdown d-inline mr-2">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Easy Dropdown
-            </button>
-            <div class="dropdown-menu" x-placement="bottom-start">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
         <div class="section-body">
             <h2 class="section-title">Clients</h2>
             <p class="section-lead">

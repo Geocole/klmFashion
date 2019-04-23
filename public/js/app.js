@@ -1906,6 +1906,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateForm",
   mounted: function mounted() {
@@ -1935,8 +1938,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Globals_Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Globals/Modal */ "./resources/js/components/Globals/Modal.vue");
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _Globals_Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Globals/Modal */ "./resources/js/components/Globals/Modal.vue");
 /* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/components/Customer/CreateForm.vue");
+//
+//
 //
 //
 //
@@ -1955,8 +1960,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Modal: _Globals_Modal__WEBPACK_IMPORTED_MODULE_0__["default"],
     CreateForm: _CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    submitCustomForm: function submitCustomForm() {
+      $('#sbForm').click();
+    }
   }
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "jquery")))
 
 /***/ }),
 
@@ -10318,7 +10329,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "form",
-      { staticClass: "needs-validation", attrs: { novalidate: "" } },
+      {
+        staticClass: "needs-validation",
+        attrs: { novalidate: "", id: "customForm" }
+      },
       [
         _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "col-md-6 mb-3" }, [
@@ -10573,128 +10587,85 @@ var staticRenderFns = [
                 ])
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "col-md-6 mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: "validationCustom03" }
-              },
-              [_vm._v("City")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "validationCustom03",
-                placeholder: "City",
-                required: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(
-                "\n                Please provide a valid city.\n            "
-              )
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "address" } },
+                [_vm._v("Langue*")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group" }, [
+                _c("div", { staticClass: "input-group-prepend" }, [
+                  _c("span", { staticClass: "input-group-text" }, [
+                    _c("i", { staticClass: "fas fa-globe-africa" })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "text", id: "langue" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "valid-feedback" }, [
+                  _vm._v(
+                    "\n                        Looks good!\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                        Inserer l'addresse du client.\n                    "
+                  )
+                ])
+              ])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6 mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: "validationCustom04" }
-              },
-              [_vm._v("State")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "validationCustom04",
-                placeholder: "State",
-                required: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(
-                "\n                Please provide a valid state.\n            "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-6 mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: "validationCustom05" }
-              },
-              [_vm._v("Zip")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "validationCustom05",
-                placeholder: "Zip",
-                required: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(
-                "\n                Please provide a valid zip.\n            "
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "form-check" }, [
-            _c("input", {
-              staticClass: "form-check-input",
-              attrs: {
-                type: "checkbox",
-                value: "",
-                id: "invalidCheck",
-                required: ""
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "form-check-label",
-                attrs: { for: "invalidCheck" }
-              },
-              [
-                _vm._v(
-                  "\n                Agree to terms and conditions\n            "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(
-                "\n                You must agree before submitting.\n            "
-              )
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "address" } },
+                [_vm._v("Adresse*")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group" }, [
+                _c("div", { staticClass: "input-group-prepend" }, [
+                  _c("span", { staticClass: "input-group-text" }, [
+                    _c("i", { staticClass: "fas fa-location-arrow" })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "text", id: "address" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "valid-feedback" }, [
+                  _vm._v(
+                    "\n                        Looks good!\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                        Inserer l'addresse du client.\n                    "
+                  )
+                ])
+              ])
             ])
           ])
         ]),
         _vm._v(" "),
         _c(
           "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          {
+            staticClass: "btn btn-primary d-none",
+            attrs: { id: "sbForm", type: "submit" }
+          },
           [_vm._v("Submit form")]
         )
       ]
@@ -10731,7 +10702,27 @@ var render = function() {
         title: "Ajouter client"
       }
     },
-    [_c("div", { staticClass: "container-fluid" }, [_c("create-form")], 1)]
+    [
+      _c("div", { staticClass: "container-fluid" }, [_c("create-form")], 1),
+      _vm._v(" "),
+      _c("template", { slot: "modal-footer" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.submitCustomForm($event)
+              }
+            }
+          },
+          [_vm._v("Ajouter Client")]
+        )
+      ])
+    ],
+    2
   )
 }
 var staticRenderFns = []

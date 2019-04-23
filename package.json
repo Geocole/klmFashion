@@ -26,9 +26,11 @@
     "dependencies": {
         "bootstrap": "^4.3.1",
         "bootstrap-material-design": "^4.1.1",
+        "bootstrap-select-v4": "^1.12.4",
         "bootstrap-vue": "^2.0.0-rc.19",
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
+        "select2": "^4.0.6-rc.1",
         "typed.js": "^2.0.10",
         "vue-flickity": "^1.1.2",
         "vue-icon": "^2.1.1",

@@ -5,7 +5,9 @@
             <create-form></create-form>
         </div>
 
-
+        <template slot="modal-footer">
+            <button type="button" class="btn btn-primary" @click.prevent="submitCustomForm" >Ajouter Client</button>
+        </template>
     </modal>
 </template>
 
@@ -14,7 +16,12 @@
     import CreateForm from './CreateForm'
     export default {
         name: "CreateModal",
-        components:{Modal,CreateForm}
+        components:{Modal,CreateForm},
+        methods:{
+            submitCustomForm(){
+                $('#sbForm').click()
+            }
+        }
     }
 </script>
 

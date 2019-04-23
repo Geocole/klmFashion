@@ -1,5 +1,5 @@
 <template>
-    <form class="needs-validation" novalidate="">
+    <form class="needs-validation" novalidate="" id="customForm">
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <div class="form-group">
@@ -102,42 +102,45 @@
                 </div>
             </div>
 
-        </div>
-        <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="validationCustom03">City</label>
-                <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-                <div class="invalid-feedback">
-                    Please provide a valid city.
+                <div class="form-group">
+                    <label class="form-label" for="address">Langue*</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-globe-africa"></i> </span>
+                        </div>
+                        <input type="text" class="form-control" id="langue"  >
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Inserer l'addresse du client.
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="validationCustom04">State</label>
-                <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-                <div class="invalid-feedback">
-                    Please provide a valid state.
+                <div class="form-group">
+                    <label class="form-label" for="address">Adresse*</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-location-arrow"></i> </span>
+                        </div>
+                        <input type="text" class="form-control" id="address"  >
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Inserer l'addresse du client.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label" for="validationCustom05">Zip</label>
-                <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-                <div class="invalid-feedback">
-                    Please provide a valid zip.
-                </div>
-            </div>
+
         </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                <label class="form-check-label" for="invalidCheck">
-                    Agree to terms and conditions
-                </label>
-                <div class="invalid-feedback">
-                    You must agree before submitting.
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
+
+        <button class="btn btn-primary d-none" id="sbForm" type="submit">Submit form</button>
     </form>
 </template>
 

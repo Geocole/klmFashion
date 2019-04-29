@@ -107,7 +107,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             icons: {
                 paginationSwitchDown: 'fa-chevron-down',
                 paginationSwitchUp: 'fa-chevron-up',
-                refresh: 'fa-refresh',
+                refresh: 'fa-sync',
                 toggleOff: 'glyphicon-list-alt fa-list-alt',
                 toggleOn: 'glyphicon-list-alt fa-list-alt',
                 columns: 'glyphicon-th fa-th',

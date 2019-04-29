@@ -155,7 +155,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                                         <li class="dropdown-item">
-                                            <a href="https://sma.tecdiary.com/admin/customers/add" data-toggle="modal" data-target="#myModal" id="add">
+                                            <a href="#" type="button" data-toggle="modal" data-target="#customerModal" id="add">
                                                 <i class="fas fa-plus-circle"></i> Ajouter client </a>
                                         </li>
                                         <li class="dropdown-item">
@@ -203,6 +203,8 @@
 
 @section('layout-modals')
     <customer-create></customer-create>
+    <div class="modal fade in" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal" aria-hidden="true"></div>
+
 @endsection
 
 @section('js-link-content')
@@ -222,10 +224,10 @@
             '<button role="button" title="Addresses"  class="btn btn-icon btn-sm btn-primary">'+
             ' <i class="fas fa-location-arrow"></i>'+
             '</button>&nbsp;' +
-            '<button role="button" title="Modifier"  class="btn btn-icon btn-sm btn-success"> ' +
+            `<button role="button" title="Modifier" onclick="sendMode(\'{{url('customer')}}/${row['id']}/edit\')"  class="btn btn-icon btn-sm btn-success"> ` +
             '<i class="fas fa-user-edit"></i>' +
             ' </button> &nbsp;' +
-            '<button    role="button" title="Supprimer" class="btn btn-icon btn-sm btn-danger">' +
+            `<button    role="button" title="Supprimer"  class="btn btn-icon btn-sm btn-danger delete-customer" data-id =${row['id']}  >` +
             ' <i class="fas fa-user-times"></i>' +
             ' </button> '];
         }
@@ -234,6 +236,16 @@
             return '<figure class="avatar mr-2 avatar-sm">\n' +
                 '                      <img src="{{asset('assets/img/avatar/avatar-3.png')}}" alt="...">\n' +
                 '                    </figure>'
+        }
+        function  genderFormatter(value) {
+            return value=== 'H'? '<span class="badge badge-danger rounded-circle">'+value+'</span>':'<span class="badge badge-primary rounded-circle">'+value+'</span>'
+        }
+
+        function sendMode(url){
+            $('#updateModal').removeData('bs.modal');
+            $('#updateModal').load(url,function () {
+                $('#updateModal').modal('show');
+            });
         }
     </script>
     @endsection

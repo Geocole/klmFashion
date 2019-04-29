@@ -6,18 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    protected $table = 'country';
 
     protected $fillable = [
-        'sortname',
+        'iso_code',
         'name',
-        'phonecode'
+        'phone_code',
+        'active'
     ];
 
-    protected $guarded = [];
+    public function scopeActive($query){
+        return $query->where('active', '=',1);
+    }
 
     public function state(){
         return $this->hasMany('\App\Models\State','country_id','id')->with('city');
+    }
+
+    public function cities(){
+        return $this->hasManyThrough(City::class,State::class);
     }
 
     //

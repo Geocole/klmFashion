@@ -1,0 +1,6 @@
+{
+  "plugins": [
+    "syntax-dynamic-import",
+    "transform-imports",
+  "@babel/plugin-proposal-class-properties"]
+}

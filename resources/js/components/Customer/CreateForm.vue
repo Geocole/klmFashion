@@ -89,7 +89,7 @@
 
                 <div class="col-md-6 mb-2">
                     <div class="form-group">
-                        <label class="form-label" for="phone">Telephone</label>
+                        <label class="form-label" for="phone_regular">Telephone</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="phonePrepend"><i class="fas fa-phone"></i></span>
@@ -344,12 +344,9 @@
                     $('body').loadingModal('hide');
                     self.$emit('error','error')
                     let errors = err.response.data;
-
                     Object.keys(errors.errors).forEach((key) => {
                         self.setError(key, errors.errors[key])
-
                     })
-                    console.log(errors)
                 })
             },
 
@@ -373,7 +370,6 @@
             });
 
             this.loadCurrency()
-
             this.loadLanguages()
             this.loadCountries()
         },
@@ -381,25 +377,21 @@
             languages(){
                 this.$nextTick(() => {
                     $('#langue').selectpicker('refresh');
-
                 })
             },
             currencies(){
                 this.$nextTick(() => {
                     $('#currency').selectpicker('refresh');
-
                 })
             },
             countries(){
                 this.$nextTick(() => {
                     $('#countries').selectpicker('refresh');
-
                 })
             },
             cities(){
                 this.$nextTick(() => {
                     $('#cities').selectpicker('refresh');
-
                 })
             },
             'country'(newValue,oldValue){

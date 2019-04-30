@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerRequest;
+use App\Imports\CustomersImport;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Person;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
+    /**
+     * Constructor
+     */
 
+    public function __construct()
+    {
 
+        $this->middleware('auth');
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -27,15 +37,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,14 +44,10 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $datas = $request->all();
-
-        //dd($datas);
-
-        $person = new Person();
+        /*$person = new Person();
         $person->name = $request['name'];
         $person->lastname = $request['lastname'];
-        $person->gender = $request['gender'];
+        $person->gender = $request['gender'];*/
 
         $address = new Address();
         $address->phone_regular = $request['phone_regular'];
@@ -65,43 +62,31 @@ class CustomerController extends Controller
         $customer->currency_id = $request['currency_id'];
         $customer->language_id = $request['language_id'];
 
-
-
-
       DB::beginTransaction();
 
       try{
-          $person->save();
+          $person = Person::create($request->only([
+              'name',
+              'lastname',
+              'gender']));
+
           $customer->person()->associate($person);
           $customer->save();
+
           $customer->addresses()->save($address);
 
       }catch(\Exception $ex){
-        //dd($ex);
           DB::rollback();
-          dd($ex);
+
           return response()->json('Une erreur s\'est produite',422);
       }
 
       DB::commit();
 
       return response()->json('Success');
-       //$person = $request['']
-        //$address = $datas['address'];
 
-        //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -111,9 +96,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-
         $customer = Customer::find($id)->load('address')->load('person');
-
 
         return view('customers.edit')->with('customer',$customer);
     }
@@ -128,7 +111,9 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $customer = Customer::find($id)->load('address')->load('person');
+
         $address = $customer->address;
+
         $person = $customer->person;
 
         DB::beginTransaction();
@@ -155,16 +140,16 @@ class CustomerController extends Controller
                 'email' => $request['email']
             ]);
 
-
         }catch (\Exception $ex){
 
             DB::rollBack();
-            dd($ex);
+
             return response()->json('Une erreur s\'est produite',422);
 
         }
 
         DB::commit();
+
         return response()->json('Success');
 
     }
@@ -178,46 +163,59 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         DB::beginTransaction();
+
         try{
 
         $customer = Customer::find($id)->load('addresses')->load('person');
+
         $person = $customer->person;
+
         $addresses = $customer->addresses;
 
+        $person->delete();
 
-            $person->delete();
+        foreach($addresses as $address){
 
-            foreach($addresses as $address){
-                $address->delete();
-            }
-            $customer->delete();
+            $address->delete();
+
+        }
+
+        $customer->delete();
 
         }catch (\Exception $ex){
-            dd($ex);
+
             DB::rollBack();
 
             return response()->json('Une erreur s\'est produite',422);
+
         }
+
         DB::commit();
+
         return response()->json('Success');
 
     }
 
     public function dataTable(Request $request){
 
-        //dd($request->all());
         if(!isset($request['order'])){
+
             if($request['order']!='desc')
+
                 $request['order']='desc';
 
         }
 
         if(!isset($request['search'])){
+
             if($request['search']!='%%')
+
                 $request['search']='%%';
 
         }else{
+
             $request['search']='%'.$request['search'].'%';
+
         }
 
         if(!isset($request['filter'])){
@@ -225,16 +223,23 @@ class CustomerController extends Controller
             $request['filter'] = [];
 
         }else{
+
             unset($request['status']);
+
             $request['filter'] = json_decode($request['filter'],true);
+
         }
 
         if(!isset($request['sort'])){
+
             if($request['sort']!='id')
+
                 $request['sort']='id';
+
         }
 
         $rows = Customer::where(function($query) use($request){
+
             $query
                 ->orwhere('k_people.name','like',$request['search'])
                 ->orwhere('k_people.lastname','like',$request['search'])
@@ -244,12 +249,16 @@ class CustomerController extends Controller
                 ->orwhere('addresses.email','like',$request['search'])
                 ->orwhere('cities.name','like',$request['search'])
                 ->orwhere('countries.name','like',$request['search']);
+
         })->join('k_people','k_people.id','=','k_customers.person_id')
             ->join('currencies','currencies.id','=','k_customers.currency_id')
             ->join('languages','languages.id','=','k_customers.language_id')
             ->leftJoin('addresses',function ($join){
+
                 $join->on('addresses.addressable_id','=','k_customers.id')
+
                     ->where('addresses.addressable_type','=',Customer::class)
+
                     ->where('addresses.alias','=','Main Address');
 
             })
@@ -273,12 +282,16 @@ class CustomerController extends Controller
             ->take($request['limit'])
             ->get();
 
-
-
         $total  = Customer::join('k_people','k_people.id','=','k_customers.person_id')
             ->join('currencies','currencies.id','=','k_customers.currency_id')
             ->join('languages','languages.id','=','k_customers.language_id')
             ->count();
+
         return ['rows'=>$rows,'total'=>$total];
+
+    }
+
+    public function test(){
+        Excel::import(new CustomersImport(), 'template.xlsx');
     }
 }

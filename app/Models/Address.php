@@ -5,6 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property mixed phone_regular
+ * @property mixed address1
+ * @property mixed address2
+ * @property mixed postcode
+ * @property mixed country_id
+ * @property mixed city_id
+ * @property mixed email
+ */
 class Address extends Model {
 
     use SoftDeletes;

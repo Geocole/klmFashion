@@ -6,10 +6,17 @@
  */
 
 require('./bootstrap');
+
 import './plugins/bootstrapTable.js'
+import 'bootstrap-select-v4/dist/css/bootstrap-select.min.css'
+import 'flag-icon-css/sass/flag-icon.scss'
+import 'vue-tel-input/dist/vue-tel-input.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 window.Vue = require('vue');
 
+import SweetModal from 'sweet-modal-vue/src/plugin.js'
+Vue.use(SweetModal)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,6 +30,7 @@ window.Vue = require('vue');
 
 Vue.component('bootstap-table', require('./components/DataTable/BootstrapTable.vue').default);
 Vue.component('customer-create', require('./components/Customer/CreateModal.vue').default);
+Vue.component('update-modal', require('./components/Customer/UpdateModal.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

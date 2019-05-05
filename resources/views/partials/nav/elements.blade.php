@@ -11,7 +11,7 @@
             </a>
         </li>
         <li>
-            <a class="nav-link" href="{{route('customer.create')}}">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#customerModal">
                 <i class="fas fa-user-plus"></i>
                 Ajouter un client
             </a>

@@ -6,13 +6,17 @@ use App\Traits\AddressTrait;
 use App\Traits\PersonTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Webpatser\Uuid\Uuid;
 
 class Customer extends Model{
 
     use AddressTrait, PersonTrait,Sluggable;
+
+    use SoftDeletes;
     protected $table= 'k_customers';
 
+    protected $dates = ['deleted_at'];
 
     protected $guarded= ['id','uuid','slug'];
 
@@ -27,7 +31,9 @@ class Customer extends Model{
         });
     }
 
-
+    public function address(){
+        return $this->morphOne(Address::class,'addressable')->where('alias','=','Main Address');
+    }
 
     public function commandes(){
 

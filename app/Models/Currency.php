@@ -26,6 +26,10 @@ class Currency extends Model {
         'conversion_rate' => array('required', 'min:0'),
     );
 
+    public function scopeActive($query){
+        return $query->where('active', '=',1);
+    }
+
     public function getFormatAttribute()
     {
         $format = '';

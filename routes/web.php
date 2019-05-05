@@ -20,5 +20,7 @@ Route::get('/', 'HomeController@index')->name('home');
 /*
  * Routes for customer section
  */
-Route::resource('customer','CustomerController');
+Route::resource('customer','CustomerController')->except(['create','show']);
 Route::get('/data-table', 'CustomerController@dataTable')->name('customer.data.table');
+
+Route::get('/test/import', 'CustomerController@test');

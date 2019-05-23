@@ -11,6 +11,7 @@ namespace App\Classes;
 
 class Summary extends Obj
 {
+    public $file;
     public $sync_by;
     public $structureIssues;
     public $contentIssues;
@@ -20,12 +21,14 @@ class Summary extends Obj
     public $time;
     protected $syncName = "ClientsSyncs";
 
-    public function __construct()
+    public function __construct($file)
     {
+        $this->file = $file;
         $this->structureIssues = new Obj();
         $this->contentIssues = new Obj();
         $this->date = now()->format(config('klm.phpDateFormat'));
         $this->time = now()->format('H:i');
+        $this->sync_by = auth()->id();
     }
 
     public function rowsWithIssues()
@@ -54,8 +57,7 @@ class Summary extends Obj
 
     public function addContentIssue(string $category, int $rowNumber = null, string $column = null, $value = null)
     {
-        $container = $this->sheetContainer($this->contentIssues);
-        $container = $this->categoryContainer($container, $category);
+        $container = $this->categoryContainer($this->contentIssues, $category);
 
         $issue = new Obj(compact('rowNumber', 'column', 'value'));
 

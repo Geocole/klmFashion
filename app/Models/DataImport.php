@@ -38,27 +38,7 @@ class DataImport extends Model
         return json_encode($this->summary);
     }
 
-    public function store( $file, $type)
-    {
 
-        $importer = new CustomersImport(new Summary());
-
-        try{
-            Excel::import($importer, $file);
-        }catch( \Exception $exception){
-            dd($exception);
-        }
-
-        \DB::transaction(function () use ($importer, $file, $type) {
-                $this->create([
-                    'name' => $file,
-                    'type' => $type,
-                    'summary' => $importer->getSummary(),
-                ]);
-        });
-
-        return $importer->getSummary();
-    }
 
     public function folder()
     {
@@ -69,4 +49,6 @@ class DataImport extends Model
     {
         return true;
     }
+
+
 }

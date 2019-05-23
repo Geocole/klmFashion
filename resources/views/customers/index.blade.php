@@ -222,9 +222,9 @@
                                         </li>
 
                                         <li class="dropdown-item">
-                                            <a href="https://sma.tecdiary.com/admin/customers/import_csv"
+                                            <a href=#"
                                                data-toggle="modal"
-                                               data-target="#myModal"
+                                               data-target="#importModal"
                                             >
                                                 <i class="fas fa-plus-circle"></i>
                                                 {{ __('Ajouter des clients par CSV') }}
@@ -264,7 +264,7 @@
                                 </p>
 
                                 <div class="table-responsive">
-                                    <bootstap-table url="{{ route('customer.data.table') }}">
+                                    <bootstap-table url="{{ route('customers.data.table') }}">
                                     </bootstap-table>
                                 </div>
                             </div>
@@ -280,6 +280,7 @@
     <customer-create></customer-create>
     <div class="modal fade in" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
          aria-hidden="true"></div>
+    <customer-import-modal></customer-import-modal>
 
 @endsection
 @section('js-link-content')
@@ -299,7 +300,7 @@
             '<button role="button" title="Addresses"  class="btn btn-icon btn-sm btn-primary">' +
             ' <i class="fas fa-location-arrow"></i>' +
             '</button>&nbsp;' +
-            `<button role="button" title="Modifier" onclick="sendMode(\'{{url('customer')}}/${row['id']}/edit\')"  class="btn btn-icon btn-sm btn-success"> ` +
+            `<button role="button" title="Modifier" onclick="sendMode(\'{{url('customers')}}/${row['id']}/edit\')"  class="btn btn-icon btn-sm btn-success"> ` +
             '<i class="fas fa-user-edit"></i>' +
             ' </button> &nbsp;' +
             `<button    role="button" title="Supprimer"  class="btn btn-icon btn-sm btn-danger delete-customer" data-id =${row['id']}  >` +

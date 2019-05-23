@@ -366,7 +366,7 @@
                 form_data.append('_token',_token)
                 form_data.append('_position', 'PUT');
                 form_data.append('_method', 'PUT')
-                axios.post('/customer/'+this.customerData.id,form_data)
+                axios.post('/customers/'+this.customerData.id,form_data)
                     .then(result => {
                         $('body').loadingModal('hide');
                         self.iniClientModel()

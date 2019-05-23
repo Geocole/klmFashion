@@ -2,6 +2,9 @@
 
 namespace App\Traits\DataTable;
 
+use App\Models\Customer;
+use Illuminate\Http\Request;
+
 trait HasCustomerDataTable
 {
     public function dataTable(Request $request)

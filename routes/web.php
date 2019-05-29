@@ -20,5 +20,10 @@ Route::get('/', 'HomeController@index')->name('home');
 /*
  * Routes for customer section
  */
-Route::resource('customer','CustomerController');
-Route::get('/data-table', 'CustomerController@dataTable')->name('customer.data.table');
+Route::namespace('Customer')
+    ->middleware('auth')
+    ->group(function (){
+        Route::resource('customers','CustomerController')->except(['create','show']);
+        Route::post('customers/import', 'ImportController@store')->name('customers.import');
+        Route::get('customers/data-table', 'CustomerController@dataTable')->name('customers.data.table');
+    });

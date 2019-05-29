@@ -1,15 +1,24 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import vue from "vue";
+
 
 require('./bootstrap');
+
 import './plugins/bootstrapTable.js'
+import 'bootstrap-select-v4/dist/css/bootstrap-select.min.css'
+import 'flag-icon-css/sass/flag-icon.scss'
+import 'vue-tel-input/dist/vue-tel-input.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
+import  'bootstrap-fileinput/css/fileinput.min.css'
 
-window.Vue = require('vue');
+window.Vue = vue;
 
+import SweetModal from 'sweet-modal-vue/src/plugin.js'
+Vue.use(SweetModal)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,12 +32,8 @@ window.Vue = require('vue');
 
 Vue.component('bootstap-table', require('./components/DataTable/BootstrapTable.vue').default);
 Vue.component('customer-create', require('./components/Customer/CreateModal.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('update-modal', require('./components/Customer/UpdateModal.vue').default);
+Vue.component('customer-import-modal', require('./components/Customer/ImportModal.vue').default);
 
 const app = new Vue({
     el: '#app'

@@ -10,7 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 mix.webpackConfig(webpack => {
     return {
@@ -65,6 +65,7 @@ mix.webpackConfig(webpack => {
             chunkFilename: 'js/[name].[chunkhash].js',
         },
         plugins: [
+
             new webpack.ProvidePlugin({
                 $: 'jquery',
                 jQuery: 'jquery',
@@ -77,6 +78,11 @@ mix.webpackConfig(webpack => {
         }
     };
 })
+/*
+  new BundleAnalyzerPlugin({
+                generateStatsFile:true
+            }),
+ */
 
 
 mix.js('resources/js/app.js', 'public/js')

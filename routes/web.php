@@ -23,9 +23,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::namespace('Customer')
     ->middleware('auth')
     ->group(function (){
-        Route::post('customers/import', 'ImportController@store')->name('customers.import');
-
         Route::resource('customers','CustomerController')->except(['create','show']);
+        Route::post('customers/import', 'ImportController@store')->name('customers.import');
         Route::get('customers/data-table', 'CustomerController@dataTable')->name('customers.data.table');
-
     });

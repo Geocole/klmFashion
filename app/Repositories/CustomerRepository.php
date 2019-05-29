@@ -13,10 +13,9 @@ use App\Classes\Summary;
 use App\Imports\CustomersImport;
 use App\Models\Customer;
 use App\Models\DataImport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\RowValidator;
-use Tests\Unit\CustomerImportTest;
 
 class CustomerRepository
 {
@@ -45,12 +44,14 @@ class CustomerRepository
         $this->addIssuesFromImportFailures($importer);
 
 
-        \DB::transaction(function () use ($importer, $file, $type) {
-            DataImport::create([
+        DB::transaction(function () use ($importer, $file, $type) {
+            $dataImport = DataImport::create([
                 'name' => $file->getClientOriginalName(),
                 'type' => $type,
                 'summary' => $importer->getSummary(),
             ]);
+                $dataImport->addMedia($file)->toMediaCollection('customers-imports');
+
         });
 
         return $importer->getSummary()->toJson();

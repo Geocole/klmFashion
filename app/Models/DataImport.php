@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Classes\Summary;
-use App\Imports\CustomersImport;
 use App\Traits\CreatedBy;
 use Illuminate\Database\Eloquent\Model;
-use Maatwebsite\Excel\Facades\Excel;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\File;
 
-class DataImport extends Model
+class DataImport extends Model implements HasMedia
 {
-    use CreatedBy;
+    use CreatedBy, HasMediaTrait;
 
     protected $extensions = ['xlsx'];
 
@@ -38,7 +38,16 @@ class DataImport extends Model
         return json_encode($this->summary);
     }
 
-
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('customers-imports')
+            ->acceptsFile(function (File $file) {
+            return collect([
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-excel,text/csv'
+            ])->contains($file->mimeType);
+        });
+    }
 
     public function folder()
     {

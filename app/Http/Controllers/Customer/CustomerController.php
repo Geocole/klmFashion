@@ -164,12 +164,11 @@ class CustomerController extends Controller
 
             $customer->person->delete();
 
-            $customer->addresses->delete();
+            $customer->address()->delete();
 
             $customer->delete();
 
         } catch (\Exception $ex) {
-
             DB::rollBack();
 
             return response()->json('Une erreur s\'est produite', 422);
@@ -178,10 +177,5 @@ class CustomerController extends Controller
         DB::commit();
 
         return response()->json('Success');
-    }
-
-    public function test()
-    {
-        return response()->json($this->repository->import());
     }
 }

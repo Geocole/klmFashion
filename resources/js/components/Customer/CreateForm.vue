@@ -9,7 +9,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user-tie"></i> </span>
                             </div>
-                            <input type="text" class="form-control" id="validationCustom01" v-model="customer.name" placeholder="Nom" required>
+                            <input type="text" class="form-control" id="validationCustom01" v-model="customer.name"
+                                   placeholder="Nom" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -29,7 +30,8 @@
                                 <i class="fas fa-user-tie"></i>
                             </span>
                             </div>
-                            <input type="text" class="form-control" v-model="customer.lastname" id="validationCustom02" placeholder="Prenom" required>
+                            <input type="text" class="form-control" v-model="customer.lastname" id="validationCustom02"
+                                   placeholder="Prenom" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -51,7 +53,10 @@
                                     title="Selectionner le pays"
                                     id="countries" required
                                     v-model="country">
-                                <option v-for="country in countries" :key="country.iso_code" :value="country"><span :class="'flag-icon flag-icon-'+country.iso_code.toLowerCase()"></span> &nbsp; &nbsp; {{country.name}}</option>
+                                <option v-for="country in countries" :key="country.iso_code" :value="country"><span
+                                        :class="'flag-icon flag-icon-'+country.iso_code.toLowerCase()"></span> &nbsp;
+                                    &nbsp; {{country.name}}
+                                </option>
                             </select>
                             <div class="valid-feedback">
                                 Looks good!
@@ -75,7 +80,9 @@
                                 required
                                 v-model="customer.city_id"
                         >
-                            <option v-for="city in cities" :key="city.name+'-'+city.state_id" :value="city.id">{{city.name}}</option>
+                            <option v-for="city in cities" :key="city.name+'-'+city.state_id" :value="city.id">
+                                {{city.name}}
+                            </option>
                         </select>
                         <div class="valid-feedback">
                             Looks good!
@@ -119,7 +126,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="emailPrepend"><i class="fas fa-envelope"></i></span>
                             </div>
-                            <input type="email" class="form-control" v-model="customer.email" id="email" placeholder="customer@mail.com" required>
+                            <input type="email" class="form-control" v-model="customer.email" id="email"
+                                   placeholder="customer@mail.com" required>
                             <div class="invalid-feedback">
                                 {{customer.errorsMsg.email}}
                             </div>
@@ -134,7 +142,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-location-arrow"></i> </span>
                             </div>
-                            <input type="text" class="form-control" v-model="customer.address1" id="address1"  >
+                            <input type="text" class="form-control" v-model="customer.address1" id="address1">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -152,7 +160,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-location-arrow"></i> </span>
                             </div>
-                            <input type="text" class="form-control" v-model="customer.address2" id="address2"  >
+                            <input type="text" class="form-control" v-model="customer.address2" id="address2">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -206,7 +214,11 @@
                                     title="Selectionner une langue"
                                     v-model="customer.language_id"
                                     id="langue" required>
-                                <option v-for="language in languages" :key="language.iso_code" :value="language.id" v-model="customer.language_id"><span :class="'flag-icon flag-icon-'+language.iso_code"></span> &nbsp; &nbsp; {{language.name}}</option>
+                                <option v-for="language in languages" :key="language.iso_code" :value="language.id"
+                                        v-model="customer.language_id"><span
+                                        :class="'flag-icon flag-icon-'+language.iso_code"></span> &nbsp; &nbsp;
+                                    {{language.name}}
+                                </option>
                             </select>
                             <div class="valid-feedback">
                                 Looks good!
@@ -229,7 +241,8 @@
                                     title="Choisissez une monnaie "
                                     v-model="customer.currency_id"
                                     id="currency" required>
-                                <option v-for="currency in currencies" :key="currency.iso_code" :value="currency.id" v-model="customer.currency_id">
+                                <option v-for="currency in currencies" :key="currency.iso_code" :value="currency.id"
+                                        v-model="customer.currency_id">
                                 <span class="badge badge-light">
                                     <em>{{currency.iso_code}}</em>
                                 </span>&nbsp;
@@ -240,7 +253,7 @@
                                 </option>
                             </select>
                             <div class="valid-feedback">
-                            Looks good!
+                                Looks good!
                             </div>
                             <div class="invalid-feedback">
                                 {{customer.errorsMsg.currency_id}}
@@ -254,11 +267,13 @@
                         <label class="form-label ">Genre</label>
                         <div class="selectgroup selectgroup-pills">
                             <label class="selectgroup-item">
-                                <input type="radio" name="icon-input" v-model="customer.gender" value="H" class="selectgroup-input" checked="">
+                                <input type="radio" name="icon-input" v-model="customer.gender" value="H"
+                                       class="selectgroup-input" checked="">
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-male"></i> Homme</span>
                             </label>
                             <label class="selectgroup-item">
-                                <input type="radio" name="icon-input" v-model="customer.gender" value="M" class="selectgroup-input">
+                                <input type="radio" name="icon-input" v-model="customer.gender" value="M"
+                                       class="selectgroup-input">
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-female"></i> Femme</span>
                             </label>
                         </div>
@@ -269,7 +284,7 @@
                 </div>
 
             </div>
-            <button class="btn btn-primary d-none" id="cancelForm" @click.prevent="cancelAdd" >Cancel</button>
+            <button class="btn btn-primary d-none" id="cancelForm" @click.prevent="cancelAdd">Cancel</button>
 
             <button class="btn btn-primary d-none" id="sbForm" type="submit">Submit form</button>
         </form>
@@ -278,31 +293,33 @@
 </template>
 
 <script>
-    const VueTelInput = ()=> import('../../plugins/vue-tel-input-master/src/vue-tel-input');
+    const VueTelInput = () => import('../../plugins/vue-tel-input-master/src/vue-tel-input');
     import Customer from '../../Classes/Customer'
-    import { ApiData } from '../../mixins/Customer/ApiDatas'
+    import {ApiData} from '../../mixins/Customer/ApiDatas'
+    import {Loader} from '../../mixins/loader'
+
     export default {
         name: "CreateForm",
         components: {
             VueTelInput,
         },
-        mixins:[ApiData],
-        data(){
+        mixins: [ApiData, Loader],
+        data() {
             return {
                 customer: new Customer(),
             }
         },
-        methods:{
-            cancelAdd(){
-                    this.iniClientModel()
-                    $('#customerModal').modal('hide')
-                    $("#customForm").removeClass('was-validated')
-                    let invalidEls =$('.is-invalid').get();
-                    for(let el in invalidEls){
-                        invalidEls[el].classList.remove('is-invalid')
-                    }
+        methods: {
+            cancelAdd() {
+                this.iniClientModel()
+                $('#customerModal').modal('hide')
+                $("#customForm").removeClass('was-validated')
+                let invalidEls = $('.is-invalid').get();
+                for (let el in invalidEls) {
+                    invalidEls[el].classList.remove('is-invalid')
+                }
             },
-            iniClientModel(){
+            iniClientModel() {
                 this.customer.init()
                 this.initSelectPickers()
 
@@ -315,52 +332,46 @@
                 $('#currency').selectpicker('val', '');
             }
             ,
-            addNewCustomer(form){
-                $('body').loadingModal({
-                    position: 'auto',
-                    text: 'Enregistrement du client en cours',
-                    color: '#fff',
-                    opacity: '0.7',
-                    backgroundColor: '#6777ef',
-                    animation: 'cubeGrid'
-                });
-                let self =this
+            addNewCustomer(form) {
+                this.load('Enregistrement du client en cours');
+
+                let self = this
                 let _token = document.head.querySelector('meta[name="csrf-token"]').content
                 let form_data = new FormData();
 
                 Object.keys(this.customer).forEach(key => {
-                    form_data.append(key , self.customer[key])
+                    form_data.append(key, self.customer[key])
                 })
                 //form_data.append('datas',JSON.stringify(this.customer))
-                form_data.append('_token',_token)
-                axios.post('/customer',form_data)
+                form_data.append('_token', _token)
+                axios.post('/customers', form_data)
                     .then(result => {
-                    $('body').loadingModal('hide');
-                    self.iniClientModel()
-                     form.classList.remove('was-validated');
-                    $('#fresh-table').bootstrapTable('refresh')
-                     self.$emit('success','success')
-                }).catch((err) =>{
-                    $('body').loadingModal('hide');
-                    self.$emit('error','error')
-                    let errors = err.response.data;
-                    Object.keys(errors.errors).forEach((key) => {
-                        self.setError(key, errors.errors[key])
+                        self.hideLoader();
+                        self.iniClientModel()
+                        form.classList.remove('was-validated');
+                        $('#fresh-table').bootstrapTable('refresh')
+                        self.$emit('success', 'success')
+                    }).catch((err) => {
+                        self.hideLoader();
+                        self.$emit('error', 'error')
+                        let errors = err.response.data;
+                        Object.keys(errors.errors).forEach((key) => {
+                            self.setError(key, errors.errors[key])
+                        })
                     })
-                })
-            },
+                },
 
-        },
-        mounted(){
+            },
+        mounted() {
             let forms = document.getElementsByClassName('needs-validation');
             // Loop over them and prevent submission
-            let self= this
-            let validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
+            let self = this
+            let validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
-                    }else {
+                    } else {
                         form.classList.add('was-validated');
                         event.preventDefault();
                         event.stopPropagation();
@@ -373,29 +384,29 @@
             this.loadLanguages()
             this.loadCountries()
         },
-        watch:{
-            languages(){
+        watch: {
+            languages() {
                 this.$nextTick(() => {
                     $('#langue').selectpicker('refresh');
                 })
             },
-            currencies(){
+            currencies() {
                 this.$nextTick(() => {
                     $('#currency').selectpicker('refresh');
                 })
             },
-            countries(){
+            countries() {
                 this.$nextTick(() => {
                     $('#countries').selectpicker('refresh');
                 })
             },
-            cities(){
+            cities() {
                 this.$nextTick(() => {
                     $('#cities').selectpicker('refresh');
                 })
             },
-            'country'(newValue,oldValue){
-                if(newValue){
+            'country'(newValue, oldValue) {
+                if (newValue) {
                     this.phone_iso = newValue.iso_code
                     this.customer.country_id = newValue.id
                     this.loadCities(newValue.id)
@@ -406,10 +417,11 @@
 </script>
 
 <style lang="scss">
-    #customForm{
-        .bs-invalid{
+    #customForm {
+        .bs-invalid {
             border-color: #dc3545;
         }
+
         .bootstrap-select.form-control:not([class*="col-"]) {
             width: 1% !important;
         }

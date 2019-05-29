@@ -78,11 +78,12 @@ mix.webpackConfig(webpack => {
         }
     };
 })
-
 /*
-new BundleAnalyzerPlugin({
+  new BundleAnalyzerPlugin({
                 generateStatsFile:true
             }),
  */
+
+
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');

@@ -33,6 +33,7 @@
         "babel-polyfill": "^6.9.1",
         "babel-preset-es2015": "^6.9.0",
         "bootstrap": "^4.3.1",
+        "bootstrap-fileinput": "^5.0.3",
         "bootstrap-material-design": "^4.1.1",
         "bootstrap-select-v4": "^1.12.4",
         "css-loader": "^0.28.0",

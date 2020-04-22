@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 import vue from "vue";
 
 
@@ -34,6 +35,7 @@ Vue.component('bootstap-table', require('./components/DataTable/BootstrapTable.v
 Vue.component('customer-create', require('./components/Customer/CreateModal.vue').default);
 Vue.component('update-modal', require('./components/Customer/UpdateModal.vue').default);
 Vue.component('customer-import-modal', require('./components/Customer/ImportModal.vue').default);
+
 
 const app = new Vue({
     el: '#app'

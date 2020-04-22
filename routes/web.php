@@ -17,6 +17,18 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/logout',function(){
+    Session::flush();
+    Auth::logout();
+    return Redirect::to("/login")
+      ->with('message', array('type' => 'success', 'text' => 'You have successfully logged out'));
+});
+
+Route::get('/profile',function(){
+    return view('profile');
+});
+Route::post('/edit','ProfileController@update');
+
 /*
  * Routes for customer section
  */

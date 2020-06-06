@@ -81,7 +81,9 @@ class CustomerController extends Controller
         return response()->json('Success');
     }
 
+    public function dataTable(){
 
+    }
 
     /**
      * Show the form for editing the specified resource.

@@ -150,10 +150,10 @@
 
 @endsection
 
-@section('layout-content')
+@section('layout-content')t
     <section class="section">
         <div class="section-header">
-            <h1>{{ __('Clients') }}</h1>
+            <h1>{{ __('Employees') }}</h1>
 
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active">
@@ -176,7 +176,7 @@
 
         <div class="section-body">
             <h2 class="section-title">
-                {{ __('Clients') }}
+                {{ __('Employees') }}
             </h2>
 
             <p class="section-lead">
@@ -188,7 +188,7 @@
                     <div class="box-header">
                         <h2 class="blue text-primary">
                             <i class="fa-fw fas fa-users"></i>
-                            {{ __('Clients') }}
+                            {{ __('Employees') }}
                         </h2>
 
                         <div class="box-icon">
@@ -214,10 +214,10 @@
                                     >
                                         <li class="dropdown-item">
                                             <a href="#" type="button" data-toggle="modal"
-                                               data-target="#customerModal"
+                                               data-target="#employeeModal"
                                                id="add">
                                                 <i class="fas fa-plus-circle"></i>
-                                                {{ __('Ajouter client') }}
+                                                {{ __('Ajouter Employee') }}
                                             </a>
                                         </li>
 
@@ -227,7 +227,7 @@
                                                data-target="#importModal"
                                             >
                                                 <i class="fas fa-plus-circle"></i>
-                                                {{ __('Ajouter des clients par CSV') }}
+                                                {{ __('Ajouter des Employees par CSV') }}
                                             </a>
                                         </li>
 
@@ -241,13 +241,13 @@
                                         <li class="divider"></li>
 
                                         <li class="dropdown-item">
-                                            <a href="#" class="bpo" title="<b>Supprimer les clients</b>"
+                                            <a href="#" class="bpo" title="<b>Supprimer les Employees</b>"
                                                data-content="<p>Êtes-vous sûr?</p><button type='button' class='btn btn-danger' id='delete' data-action='delete'>Oui, je suis sûr</a> <button class='btn bpo-close'>Non</button>"
                                                data-html="true"
                                                data-placement="left"
                                             >
                                                 <i class="fas fa-trash-o"></i>
-                                                {{ __('Supprimer les clients') }}
+                                                {{ __('Supprimer les Employees') }}
                                             </a>
                                         </li>
                                     </ul>
@@ -264,8 +264,8 @@
                                 </p>
 
                                 <div class="table-responsive">
-                                    <bootstap-table url="{{ route('customers.data.table') }}">
-                                    </bootstap-table>
+                                    <employee-data-table url="{{ route('employees.data.table') }}">
+                                    </employee-data-table>
                                 </div>
                             </div>
                         </div>
@@ -277,10 +277,10 @@
 @endsection
 
 @section('layout-modals')
-    <customer-create></customer-create>
+    <employee-create></employee-create>
     <div class="modal fade in" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
          aria-hidden="true"></div>
-    <customer-import-modal></customer-import-modal>
+    <employee-import-modal></employee-import-modal>
 
 @endsection
 @section('js-link-content')
@@ -300,10 +300,10 @@
             '<button role="button" title="Addresses"  class="btn btn-icon btn-sm btn-primary">' +
             ' <i class="fas fa-location-arrow"></i>' +
             '</button>&nbsp;' +
-            `<button role="button" title="Modifier" onclick="sendMode(\'{{url('customers')}}/${row['id']}/edit\')"  class="btn btn-icon btn-sm btn-success"> ` +
+            `<button role="button" title="Modifier" onclick="sendMode(\'{{url('employees')}}/${row['id']}/edit\')"  class="btn btn-icon btn-sm btn-success"> ` +
             '<i class="fas fa-user-edit"></i>' +
             ' </button> &nbsp;' +
-            `<button    role="button" title="Supprimer"  class="btn btn-icon btn-sm btn-danger delete-customer" data-id =${row['id']}  >` +
+            `<button    role="button" title="Supprimer"  class="btn btn-icon btn-sm btn-danger delete-employee" data-id =${row['id']}  >` +
             ' <i class="fas fa-user-times"></i>' +
             ' </button> '];
         }

@@ -36,6 +36,10 @@ Vue.component('customer-create', require('./components/Customer/CreateModal.vue'
 Vue.component('update-modal', require('./components/Customer/UpdateModal.vue').default);
 Vue.component('customer-import-modal', require('./components/Customer/ImportModal.vue').default);
 
+Vue.component('employee-data-table', require('./components/DataTable/EmployeeDataTable.vue').default);
+Vue.component('employee-create', require('./components/Employee/CreateModal.vue').default);
+Vue.component('update-employee-modal', require('./components/Employee/UpdateModal.vue').default);
+Vue.component('employee-import-modal', require('./components/Employee/ImportModal.vue').default);
 
 const app = new Vue({
     el: '#app'

@@ -4,8 +4,8 @@
             <div class="row fresh-table toolbar-color-blue">
                 <div class="col-lg-12">
                     <div id="toolbar">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">
-                            Ajouter Nouveau client
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#employeeModal">
+                            Ajouter Nouveau employee
                         </a>
                     </div>
                     <table id="fresh-table" class="table table-condensed table-hover table-striped"
@@ -41,16 +41,10 @@
                             <th data-field="gender" data-align="center" data-formatter="genderFormatter"
                                 data-sortable="true" data-footer-formatter="[Sex]">Sex
                             </th>
-                            <th data-field="address1" data-align="center" data-footer-formatter="[Addresse]">Addresse
-                            </th>
                             <th data-field="phone_regular" data-align="center" data-footer-formatter="[Telephone]">
                                 Telephone
                             </th>
                             <th data-field="email" data-align="center" data-footer-formatter="[Email]">Email</th>
-                            <th data-field="country" data-align="center" data-footer-formatter="[Pays]">Pays</th>
-                            <th data-field="city" data-align="center" data-footer-formatter="[Ville]">Ville</th>
-                            <th data-field="language" data-align="center" data-footer-formatter="[Langue]">Langue</th>
-                            <th data-field="currency" data-align="center" data-footer-formatter="[Monnaie]">Monnaie</th>
                             <th data-field="created_at" data-align="center" data-sortable="true"
                                 data-footer-formatter="[Date]">Date
                             </th>
@@ -66,7 +60,7 @@
         </div>
 
         <sweet-modal icon="success" ref="successModal">
-            Client Supprimé avec succes!!
+            Employee Supprimé avec succes!!
         </sweet-modal>
 
         <sweet-modal icon="error" title="Echec" ref="errorModal">
@@ -79,7 +73,6 @@
 <script>
 
     export default {
-
         props: {
             url: {
                 type: String
@@ -93,11 +86,11 @@
 
             $('#fresh-table').bootstrapTable()
             let self = this;
-            $('body').on('click', '.delete-customer', function () {
-                let customer_id = $(this).data('id')
+            $('body').on('click', '.delete-employee', function () {
+                let employee_id = $(this).data('id')
                 /*  $('body').loadingModal({
                       position: 'auto',
-                      text: 'Suppression du client en cours',
+                      text: 'Suppression du Employee en cours',
                       color: '#fff',
                       opacity: '0.7',
                       backgroundColor: '#6777ef',
@@ -115,7 +108,7 @@
                     customClass: 'swal-overlay',
                     showLoaderOnConfirm: true,
                     preConfirm: (login) => {
-                        return axios.delete(`customers/${customer_id}`)
+                        return axios.delete(`employees/${employee_id}`)
                             .then(response => {
                                 return response
                             })
@@ -130,7 +123,7 @@
                         $('#fresh-table').bootstrapTable('refresh')
                         self.$refs.successModal.open()
                 });
-                /*axios.delete(`customer/${customer_id}`).then(result => {
+                /*axios.delete(`employee/${employee_id}`).then(result => {
                     $('body').loadingModal('hide');
                     $('#fresh-table').bootstrapTable('refresh')
                     self.$refs.successModal.open()

@@ -2,7 +2,8 @@
 <li class="nav-item dropdown {{(Request::is('customers*')? 'active' : '')}}">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
         <i class="fas fa-users"></i>
-        <span>{{__('Clients')}}</span></a>
+        <span>{{__('Clients')}}</span>
+    </a>
     <ul class="dropdown-menu">
         <li class="{{(Request::is('customers')? 'active' : '')}}">
             <a class="nav-link " href="{{route('customers.index')}}">
@@ -18,7 +19,54 @@
         </li>
     </ul>
 </li>
+
+<li class="nav-item dropdown {{(Request::is('customers*')? 'active' : '')}}">
+    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+        <i class="fas fa-users"></i>
+        <span>{{__('Employes')}}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="{{(Request::is('employees')? 'active' : '')}}">
+            <a class="nav-link " href="{{route('employees.index')}}">
+                <i class="fas fa-user-friends"></i>
+                Liste des employees
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#customerModal">
+                <i class="fas fa-user-plus"></i>
+                Ajouter un employee
+            </a>
+        </li>
+    </ul>
+</li>
+
+<li class="menu-header">{{__('Achats')}}</li>
+<li class="nav-item dropdown {{(Request::is('customers*')? 'active' : '')}}">
+    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+        <i class="fas fa-users"></i>
+        <span>{{__('Achats')}}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="{{(Request::is('customers')? 'active' : '')}}">
+            <a class="nav-link " href="{{route('customers.index')}}">
+                <i class="fas fa-user-friends"></i>
+                Liste des achats
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#customerModal">
+                <i class="fas fa-user-plus"></i>
+                Ajouter un achat
+            </a>
+        </li>
+    </ul>
+</li>
+
+<!--
 <li class="menu-header">Pages</li>
+-->
+<!--
 <li class="nav-item dropdown">
     <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
     <ul class="dropdown-menu">
@@ -29,3 +77,4 @@
         <li><a href="auth-reset-password.html">Reset Password</a></li>
     </ul>
 </li>
+--

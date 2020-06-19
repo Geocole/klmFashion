@@ -21,12 +21,10 @@ class Address extends Model {
     protected $dates = ['deleted_at'];
     
     protected $fillable = [ 'alias',
-                            'address1', 'address2', 'postcode', 'city', 'state_id', 'country_id', 
-                            'city_id',
-                            'name', 'email',
-                            'phone_regular', 'phone_mobile', 'fax', 'notes', 'active',
-                            'latitude', 'longitude','addressable_id','addressable_type'
-                          ];
+    'address1', 'address2', 'postcode', 'city', 'state_id', 'country_id', 
+    'city_id','name', 'email','phone_regular', 'phone_mobile', 'fax'
+    ,'notes', 'active','latitude', 'longitude','addressable_id','addressable_type'
+    ];
 
     public static $rules = array(
         'alias'    => 'required|min:2|max:32',
@@ -54,7 +52,7 @@ class Address extends Model {
 
     public function customer()
     {
-//        return $this->belongsTo('App\Customer', 'owner_id')->where('model_name', '=', 'Customer');
+        return $this->belongsTo('App\Customer', 'owner_id')->where('model_name', '=', 'Customer');
     }
     
     public function addressable()

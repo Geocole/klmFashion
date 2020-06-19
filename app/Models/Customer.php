@@ -31,6 +31,7 @@ class Customer extends Model{
         });
     }
 
+ 
     public function address(){
         return $this->morphOne(Address::class,'addressable')->where('alias','=','Main Address');
     }
@@ -40,15 +41,9 @@ class Customer extends Model{
         return $this->hasMany(Commande::class,'customer_id');
     }
 
-
-
-
-
     public function currency(){
         return $this->hasOne(Currency::class,'currency_id');
     }
-
-
     /**
      * Return the sluggable configuration array for this model.
      *

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="{{ csrf_token() }}" name="csrf-token">
+
   <title>Tableau de bord &mdash; Stellar</title>
 
   <!-- General CSS Files -->
@@ -11,13 +12,12 @@
   <link rel="stylesheet" href="{{asset('assets/fontawesome-free/css/all.css')}}">
 
   <!-- CSS Libraries -->
+  <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/node_modules/jqvmap/dist/jqvmap.min.css">
   <link rel="stylesheet" href="/node_modules/summernote/dist/summernote-bs4.css">
   <link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css">
   <link rel="stylesheet" href="{{asset('/css/jquery.loadingModal.css')}}">
-
-  <!-- Template CSS -->
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/components.css">
   
@@ -36,68 +36,6 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
           </ul>
-          <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            <div class="search-backdrop"></div>
-            <div class="search-result">
-              <div class="search-header">
-                Histories
-              </div>
-              <div class="search-item">
-                <a href="#">How to hack NASA using CSS</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-item">
-                <a href="#">Kodinger.com</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-item">
-                <a href="#">#Stisla</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-header">
-                Result
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="../assets/img/products/product-3-50.png" alt="product">
-                  oPhone S9 Limited Edition
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="../assets/img/products/product-2-50.png" alt="product">
-                  Drone X2 New Gen-7
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="../assets/img/products/product-1-50.png" alt="product">
-                  Headphone Blitz
-                </a>
-              </div>
-              <div class="search-header">
-                Projects
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <div class="search-icon bg-danger text-white mr-3">
-                    <i class="fas fa-code"></i>
-                  </div>
-                  Stisla Admin Template
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <div class="search-icon bg-primary text-white mr-3">
-                    <i class="fas fa-laptop"></i>
-                  </div>
-                  Create a new Homepage Design
-                </a>
-              </div>
-            </div>
-          </div>
         </form>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
@@ -240,9 +178,16 @@
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="#"
+               class="dropdown-item has-icon text-danger"
+               onclick="event.preventDefault();
+               document.getElementById('logout-form').submit();" 
+              >
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
+              <form id='logout-form' action="{{route('logout')}}" method="POST" style="display:none;">
+                @csrf
+              </form>
             </div>
           </li>
         </ul>
@@ -263,54 +208,12 @@
                   <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
                   <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
                 </ul>
-              </li>
-              <!-- li class="menu-header">Starter</li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
-                  <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
-                  <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
-                </ul>
-              </li>
-              <li class="active"><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="bootstrap-alert.html">Alert</a></li>
-                  <li><a class="nav-link" href="bootstrap-badge.html">Badge</a></li>
-                  <li><a class="nav-link" href="bootstrap-breadcrumb.html">Breadcrumb</a></li>
-                  <li><a class="nav-link" href="bootstrap-buttons.html">Buttons</a></li>
-                  <li><a class="nav-link" href="bootstrap-card.html">Card</a></li>
-                  <li><a class="nav-link" href="bootstrap-carousel.html">Carousel</a></li>
-                  <li><a class="nav-link" href="bootstrap-collapse.html">Collapse</a></li>
-                  <li><a class="nav-link" href="bootstrap-dropdown.html">Dropdown</a></li>
-                  <li><a class="nav-link" href="bootstrap-form.html">Form</a></li>
-                  <li><a class="nav-link" href="bootstrap-list-group.html">List Group</a></li>
-                  <li><a class="nav-link" href="bootstrap-media-object.html">Media Object</a></li>
-                  <li><a class="nav-link" href="bootstrap-modal.html">Modal</a></li>
-                  <li><a class="nav-link" href="bootstrap-nav.html">Nav</a></li>
-                  <li><a class="nav-link" href="bootstrap-navbar.html">Navbar</a></li>
-                  <li><a class="nav-link" href="bootstrap-pagination.html">Pagination</a></li>
-                  <li><a class="nav-link" href="bootstrap-popover.html">Popover</a></li>
-                  <li><a class="nav-link" href="bootstrap-progress.html">Progress</a></li>
-                  <li><a class="nav-link" href="bootstrap-table.html">Table</a></li>
-                  <li><a class="nav-link" href="bootstrap-tooltip.html">Tooltip</a></li>
-                  <li><a class="nav-link" href="bootstrap-typography.html">Typography</a></li>
-                </ul>
-              </li-->
-              
+              </li>              
 
               @include('partials.nav.elements')
               @yield('left-nav-elements')
-              <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
             </ul>
 
-            <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-              <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                <i class="fas fa-rocket"></i> Documentation
-              </a>
-            </div>
         </aside>
       </div>
 
@@ -329,16 +232,17 @@
       </footer>
     </div>
   </div>
-  <script src="/assets/js/jquery-3.3.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  <!-- Template CSS -->
 
-  <!-- General JS Scripts
+  <!-- General JS Scripts-->
   <script src="/assets/js/jquery-3.3.1.min.js"></script>
   <script src="/assets/js/popper.min.js"></script>
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/moment.min.js"></script>
-  <script src="/assets/js/stisla.js"></script> -->
+  <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<!---  <script src="/assets/js/stisla.js"></script>-->
 
-  <script src="{{asset('js/app.js')}}" ></script>
   <script src="/assets/js/jquery.nicescroll.min.js"></script>
 
   <!-- JS Libraies -->
@@ -356,6 +260,13 @@
 
   <!-- Page Specific JS File -->
   @yield('js-link-content')
-  
+  <script type="text/javascript">
+  if(typeof jQuery!=='undefined'){
+  //  console.log('jQuery Loaded');
+}
+else{
+    console.log('not loaded yet');
+}
+  </script>
 </body>
 </html>

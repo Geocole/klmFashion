@@ -46,7 +46,8 @@ trait HasCustomerDataTable
                 ->orwhere('addresses.email', 'like', $request['search'])
                 ->orwhere('cities.name', 'like', $request['search'])
                 ->orwhere('countries.name', 'like', $request['search']);
-        })->join('k_people', 'k_people.id', '=', 'k_customers.person_id')
+        })
+        ->join('k_people', 'k_people.id', '=', 'k_customers.person_id')
             ->join('currencies', 'currencies.id', '=', 'k_customers.currency_id')
             ->join('languages', 'languages.id', '=', 'k_customers.language_id')
             ->leftJoin('addresses', function ($join) {
@@ -78,7 +79,8 @@ trait HasCustomerDataTable
             ->join('currencies', 'currencies.id', '=', 'k_customers.currency_id')
             ->join('languages', 'languages.id', '=', 'k_customers.language_id')
             ->count();
-
-        return ['rows' => $rows, 'total' => $total];
+          //  dd($total);
+    
+            return ['rows' => $rows, 'total' => $total];
     }
 }

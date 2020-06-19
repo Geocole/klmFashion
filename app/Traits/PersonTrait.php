@@ -14,7 +14,6 @@ use App\Models\Person;
 trait PersonTrait
 {
     public function person(){
-
         return $this->belongsTo(Person::class);
     }
 }

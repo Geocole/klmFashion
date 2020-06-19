@@ -272,7 +272,7 @@
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-male"></i> Homme</span>
                             </label>
                             <label class="selectgroup-item">
-                                <input type="radio" name="icon-input" v-model="customer.gender" value="M"
+                                <input type="radio" name="icon-input" v-model="customer.gender" value="F"
                                        class="selectgroup-input">
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-female"></i> Femme</span>
                             </label>
@@ -301,7 +301,7 @@
     export default {
         name: "CreateForm",
         components: {
-            VueTelInput,
+         VueTelInput,
         },
         mixins: [ApiData, Loader],
         data() {
@@ -333,6 +333,7 @@
             }
             ,
             addNewCustomer(form) {
+                //console.log(form);
                 this.load('Enregistrement du client en cours');
 
                 let self = this
@@ -346,6 +347,7 @@
                 form_data.append('_token', _token)
                 axios.post('/customers', form_data)
                     .then(result => {
+                        console.log(result);
                         self.hideLoader();
                         self.iniClientModel()
                         form.classList.remove('was-validated');

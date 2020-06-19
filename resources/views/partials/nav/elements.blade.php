@@ -11,13 +11,36 @@
             </a>
         </li>
         <li>
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#customerModal">
+            <a class="nav-link"href="{{route('customers.create')}}" data-toggle="modal" data-target="#customerModal">
                 <i class="fas fa-user-plus"></i>
                 Ajouter un client
             </a>
         </li>
     </ul>
 </li>
+
+<li class="menu-header mt-2">{{__('Employees')}} </li>
+<li class="nav-item dropdown {{(Request::is('employees*')? 'active' : '')}}">
+
+<a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+        <i class="fas fa-users"></i>
+        <span>{{__('Employees')}}</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{(Request::is('customers')? 'active' : '')}}">
+            <a class="nav-link " href="{{route('employees.index')}}">
+                <i class="fas fa-user-friends"></i>
+                Consulter liste
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="{{route('employees.create')}}" data-toggle="modal" data-target="#customerModal">
+                <i class="fas fa-user-plus"></i>
+                Ajouter
+            </a>
+        </li>
+    </ul>
+</li>
+<!--
 <li class="menu-header">Pages</li>
 <li class="nav-item dropdown">
     <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
@@ -29,3 +52,4 @@
         <li><a href="auth-reset-password.html">Reset Password</a></li>
     </ul>
 </li>
+-->

@@ -43,8 +43,8 @@ class CustomerRepository
 
         $this->addIssuesFromImportFailures($importer);
 
-
         DB::transaction(function () use ($importer, $file, $type) {
+
             $dataImport = DataImport::create([
                 'name' => $file->getClientOriginalName(),
                 'type' => $type,
@@ -53,7 +53,6 @@ class CustomerRepository
                 $dataImport->addMedia($file)->toMediaCollection('customers-imports');
 
         });
-
         return $importer->getSummary()->toJson();
     }
 

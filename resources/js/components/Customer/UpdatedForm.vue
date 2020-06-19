@@ -205,7 +205,13 @@
                                 title="Selectionner une langue"
                                 v-model="customer.language_id"
                                 id="ulangue" required>
-                            <option v-for="language in languages" :selected="customer.language_id === language.id" :key="language.iso_code" :value="language.id" v-model="customer.language_id"><span :class="'flag-icon flag-icon-'+language.iso_code"></span> &nbsp; &nbsp; {{language.name}}</option>
+                            <option v-for="language in languages" 
+                                :selected="customer.language_id === language.id" 
+                                :key="language.iso_code" :value="language.id"
+                                v-model="customer.language_id">
+                                <span :class="'flag-icon flag-icon-'+language.iso_code">
+                                </span> &nbsp; &nbsp; {{language.name}}
+                            </option>
                         </select>
                         <div class="valid-feedback">
                             Looks good!
@@ -228,7 +234,8 @@
                                 title="Choisissez une monnaie "
                                 v-model="customer.currency_id"
                                 id="ucurrency" required>
-                            <option v-for="currency in currencies" :key="currency.iso_code" :value="currency.id" v-model="customer.currency_id">
+                            <option v-for="currency in currencies" :key="currency.iso_code" :value="currency.id"
+                             v-model="customer.currency_id">
                                 <span class="badge badge-light">
                                     <em>{{currency.iso_code}}</em>
                                 </span>&nbsp;
@@ -275,7 +282,7 @@
 </template>
 
 <script>
-    const VueTelInput = ()=> import('../../plugins/vue-tel-input-master/src/vue-tel-input');
+    const VueTelInput = () => import('../../plugins/vue-tel-input-master/src/vue-tel-input');
     import Customer from '../../Classes/Customer'
     import { ApiData } from '../../mixins/Customer/ApiDatas'
     export default {

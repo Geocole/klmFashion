@@ -1,33 +1,17 @@
 <template>
     <div>
-
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateCustomer">Modifier client</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <updated-form
-                                :customer-data="customerDataModal"
-                                @success="successMode"
-                                @error="errorMode"
-                        ></updated-form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" @click="cancelCustomForm" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" @click.prevent="submitCustomForm">Save changes</button>
-                </div>
+        <modal modal-name="customerModal" modal-label="customerLabel" title="Ajouter client">
+            <div class="container-fluid">
+                <updated-form @success="successMode" @error="errorMode"></updated-form>
             </div>
-        </div>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss @click="cancelCustomForm" >Annuler</button>
+                <button type="button" class="btn btn-primary" @click.prevent="submitCustomForm" >Ajouter Client</button>
+            </template>
+        </modal>
 
         <sweet-modal icon="success" ref="successModal" blocking  @close="closeModal">
             Client Mise à jour  avec succes!!
-
             <button type="button" class="btn btn-primary" slot="button" @click="$refs.successModal.close()">OK</button>
         </sweet-modal>
 
@@ -41,6 +25,7 @@
     import Modal from '../Globals/Modal'
     import UpdatedForm from './UpdatedForm'
     export default {
+        name: "UpdatedModal",
         props:{
             customerDataModal:{
                 type: Object
@@ -68,7 +53,6 @@
             }
         },
         mounted(){
-
             console.log(this.customerDataModal)
         }
     }

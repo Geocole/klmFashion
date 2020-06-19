@@ -2,8 +2,17 @@
 
 @section('css-link-content')
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-
     <style>
+    
+        .modal-backdrop {
+            z-index: -1;
+        }
+        
+        .btn.btn-sm {
+            padding: .10rem .4rem !important;
+            font-size: 12px;
+        }
+
         .box {
             border-top: 1px solid #dbdee0;
             margin-bottom: 15px
@@ -113,7 +122,7 @@
         }
 
         .box .btn-tasks li {
-            float: right
+            float: left
         }
 
         .box .btn-tasks li li {
@@ -146,44 +155,11 @@
         }
 
     </style>
-
-
 @endsection
 
 @section('layout-content')
-    <section class="section">
-        <div class="section-header">
-            <h1>{{ __('Clients') }}</h1>
 
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active">
-                    <a href="#">
-                        {{ __('Dashboard') }}
-                    </a>
-                </div>
-
-                <div class="breadcrumb-item">
-                    <a href="#">
-                        {{ __('Modules') }}
-                    </a>
-                </div>
-
-                <div class="breadcrumb-item">
-                    {{ __('DataTables') }}
-                </div>
-            </div>
-        </div>
-
-        <div class="section-body">
-            <h2 class="section-title">
-                {{ __('Clients') }}
-            </h2>
-
-            <p class="section-lead">
-                {{__('Veuillez utiliser le tableau ci-dessous pour naviguer ou filtrer les résultats. Vous pouvez télécharger le tableau comme excel et pdf.')}}
-            </p>
-
-            <div class="card">
+    <div class="card mt-5">
                 <div class="box">
                     <div class="box-header">
                         <h2 class="blue text-primary">
@@ -205,24 +181,23 @@
                                            title=""
                                            data-original-title="Actions"
                                         >
-
                                         </i>
                                     </a>
-
                                     <ul class="dropdown-menu pull-right tasks-menus" role="menu"
                                         aria-labelledby="dLabel"
                                     >
                                         <li class="dropdown-item">
-                                            <a href="#" type="button" data-toggle="modal"
-                                               data-target="#customerModal"
-                                               id="add">
+                                            <a href="#" type="button" 
+                                                data-toggle="modal"
+                                                data-target="#$customerModal"
+                                                id="add">
                                                 <i class="fas fa-plus-circle"></i>
                                                 {{ __('Ajouter client') }}
                                             </a>
                                         </li>
 
                                         <li class="dropdown-item">
-                                            <a href=#"
+                                            <a href="#"
                                                data-toggle="modal"
                                                data-target="#importModal"
                                             >
@@ -261,68 +236,139 @@
                             <div class="col-lg-12">
                                 <p class="introtext">
                                     {{ __('Veuillez utiliser le tableau ci-dessous pour naviguer ou filtrer les résultats. Vous pouvez télécharger le tableau comme excel et pdf.') }}
-                                </p>
-
+                                </p>                            
+                                <a class="btn btn-success mb-3" href="{{route('customers.create')}}">Add</a>                                
                                 <div class="table-responsive">
-                                    <bootstap-table url="{{ route('customers.data.table') }}">
-                                    </bootstap-table>
+                                    <table class="table table-bordered data-table"  id="customertable">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Last name</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Created at</th>
+                                            <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($data as $customer)
+                                            <tr>
+                                                <th scope="row">{{$customer->id}}</th>
+                                                <td>{{$customer->name}}</td>
+                                                <td>{{$customer->lastname}}</td>
+                                                <td>{{$customer->gender}}</td>
+                                                <td>{{$customer->created_at }}</td>
+                                                <td class="text-center">
+                                                    <div class="button-group">
+                                                        <a href="{{ route('customers.edit',$customer->id) }}" 
+                                                        class="btn btn-primary btnEdit">Voir</a>
+                                                        <form action="{{ route('customers.destroy', $customer->id)}}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                                        </form>                                                    
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <div class="">
+                                            {{$data->links()}}
+                                        </div>
+                                    </table>
                                 </div>
+                                <!-- Modal
+                                @include('customers.modal-create')
+                                 Modal
+                                @include('customers.modal-edit')
+                                -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-@endsection
-
-@section('layout-modals')
-    <customer-create></customer-create>
-    <div class="modal fade in" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
-         aria-hidden="true"></div>
-    <customer-import-modal></customer-import-modal>
 
 @endsection
+
 @section('js-link-content')
-    <script type="text/javascript" src="{{asset('js/bootstrapTable.js')}}"></script>
+<script type="text/javascript">
 
-    <script>
-        function actionFormatter(value, row, index) {
+    // $(function () {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    // });
+    // function sendMode(url) {
+    //     console.log(url)
+    //     $('#updateModal').load(url, function () {
+    //          $('#updateModal').modal('show');
+    //         });
+    //  }
+    // $('#createNewProduct').click(function () {
+    //         $('#saveBtn').val("create-product");
+    //         $('#id').val('');
+    //         $('#cusomerForm').trigger("reset");
+    //         $('#modelHeading').html("Create New Product");
+    //         $('#exampleModal').modal('show');
+    //     });
+        
+    // });
 
-            // <a href="/stock/show/'+row['id']+'" data-toggle="tooltip" title="View"> <i class="fa fa-eye"></i> </a> &nbsp;&nbsp;
+	// $("#addModal").validate({
+	// 	 rules: {
+	// 		},
+	// 		messages: {
+	// 		},
+ 
+	// 	 submitHandler: function(form) {
+	// 	  var form_action = $("#addModal").attr("action");
+	// 	  $.ajax({
+	// 		  data: $('#addModal').serialize(),
+	// 		  url: form_action,
+	// 		  type: "POST",
+	// 		  dataType: 'json',
+	// 		  success: function (data) {
+    //               console.log(data);
+	// 			  var customer = '<tr id="'+data.id+'">';
+	// 			  customer += '<td>' + data.id + '</td>';
+	// 			  customer += '<td>' + data.name + '</td>';  
+	// 			  customer += '<td>' + data.last_name + '</td>';
+	// 			  customer += '<td>' + data.gender + '</td>';
+	// 			  customer += '<td>' + data.address1 + '</td>';
+	// 			  customer += '<td>' + data.email + '</td>';
+	// 			  customer += '<td>' + data.language + '</td>';
+    //               customer += '<td>' + data.created_at + '</td>';
+	// 			  customer += '<td><a data-id="' + data.id +
+    //               '" class="btn btn-primary btnEdit">Edit</a>&nbsp;&nbsp;<a data-id="'
+    //              + data.id + '+"class="btn btn-danger btnDelete">Delete</a></td>';
+	// 			  customer += '</tr>';            
+	// 			  $('#customerTable tbody').prepend(student);
+	// 			  $('#customerForm')[0].reset();
+	// 			  $('#addModal').modal('hide');
+	// 		  },
+	// 		  error: function (data) {
+	// 		  }
+	// 	  });
+	// 	}
+	// });
 
-            return ['<button role="button" title="Liste des Utilisateurs"   class="btn btn-icon btn-sm btn-primary">' +
-            '  <i class="fas fa-users"></i>' +
-            '  </button>&nbsp;' +
-            '<button role="button" title="" data-toggle="tooltip" data-content="Ajouter un utilisateur" data-original-title="" data-placement="top"  class="btn btn-icon btn-sm btn-primary">' +
-            ' <i class="fas fa-user-plus"></i>' +
-            '  </button>&nbsp;' +
-            '<button role="button" title="Addresses"  class="btn btn-icon btn-sm btn-primary">' +
-            ' <i class="fas fa-location-arrow"></i>' +
-            '</button>&nbsp;' +
-            `<button role="button" title="Modifier" onclick="sendMode(\'{{url('customers')}}/${row['id']}/edit\')"  class="btn btn-icon btn-sm btn-success"> ` +
-            '<i class="fas fa-user-edit"></i>' +
-            ' </button> &nbsp;' +
-            `<button    role="button" title="Supprimer"  class="btn btn-icon btn-sm btn-danger delete-customer" data-id =${row['id']}  >` +
-            ' <i class="fas fa-user-times"></i>' +
-            ' </button> '];
-        }
 
-        function avatarFormatter() {
-            return '<figure class="avatar mr-2 avatar-sm">\n' +
-                '                      <img src="{{asset('assets/img/avatar/avatar-3.png')}}" alt="...">\n' +
-                '                    </figure>'
-        }
+    // $('body').on('click', '.btnEdit', function () {
+    //   var id = $(this).attr('id');
+    //   console/log()
+    //   $.get("{{ route('customers.index') }}" +'/' + id +'/edit', function () {
+    //         $('.message-modal').html('');    
+    //         $('.message-modal').html(data); // load response 
+    //     })
+    // });
 
-        function genderFormatter(value) {
-            return value === 'H' ? '<span class="badge badge-danger rounded-circle">' + value + '</span>' : '<span class="badge badge-primary rounded-circle">' + value + '</span>'
-        }
+    // $('body').on('click', '.btnDelete', function () {
+    //   var id = $(this).attr('id');
+    //   console/log(id);
+    //   $.get("{{ route('customers.index') }}" +'/' + id +'/edit', function () {
+    //     })
+    // });
 
-        function sendMode(url) {
-            $('#updateModal').removeData('bs.modal');
-            $('#updateModal').load(url, function () {
-                $('#updateModal').modal('show');
-            });
-        }
-    </script>
+</script>
 @endsection

@@ -13,7 +13,7 @@ class Person extends Model
     use Sluggable;
     use SoftDeletes;
     //
-	protected $table = 'k_people';
+	protected $table = 'k_peoples';
     protected $dates = ['deleted_at'];
 
 

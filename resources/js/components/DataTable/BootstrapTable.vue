@@ -1,267 +1,345 @@
 <template>
-    <div>
-        <div id="bTable">
-            <div class="row fresh-table toolbar-color-blue">
-                <div class="col-lg-12">
-                    <div id="toolbar">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#customerModal">Ajouter Nouveau
-                            client</a>
-                    </div>
-                    <table id="fresh-table" class="table table-condensed table-hover table-striped"
-                           data-toolbar="#toolbar"
-                           data-toggle="table"
-                           :data-url="url"
-                           data-pagination="true"
-                           data-side-pagination="server"
-                           data-page-list="[10, 20, 30 , 40 , 50, 100, 200]"
-                           data-search="true"
-                           data-show-refresh="true"
-                           data-show-columns="true"
-                           data-show-pagination-switch="true"
-                           data-sort-name="id"
-                           data-show-footer="true"
-                           data-show-export="false"
-                           data-show-filter="true"
-                           data-filter-control="true"
-                           data-filter-show-clear="true"
-                    >
-                        <thead>
-                        <tr>
-                            <th data-field="id" data-align="center" data-sortable="true" data-footer-formatter="[#]">#
-                            </th>
-                            <th data-field="avatar" data-align="center" data-formatter="avatarFormatter"
-                                data-sortable="true"></th>
-                            <th data-field="name" data-align="center" data-sortable="true"
-                                data-footer-formatter="[Nom]">Nom
-                            </th>
-                            <th data-field="lastname" data-align="center" data-sortable="true"
-                                data-footer-formatter="[Prenoms]">Prenoms
-                            </th>
-                            <th data-field="gender" data-align="center" data-formatter="genderFormatter"
-                                data-sortable="true" data-footer-formatter="[Sex]">Sex
-                            </th>
-                            <th data-field="address1" data-align="center" data-footer-formatter="[Addresse]">Addresse
-                            </th>
-                            <th data-field="phone_regular" data-align="center" data-footer-formatter="[Telephone]">
-                                Telephone
-                            </th>
-                            <th data-field="email" data-align="center" data-footer-formatter="[Email]">Email</th>
-                            <th data-field="country" data-align="center" data-footer-formatter="[Pays]">Pays</th>
-                            <th data-field="city" data-align="center" data-footer-formatter="[Ville]">Ville</th>
-                            <th data-field="language" data-align="center" data-footer-formatter="[Langue]">Langue</th>
-                            <th data-field="currency" data-align="center" data-footer-formatter="[Monnaie]">Monnaie</th>
-                            <th data-field="created_at" data-align="center" data-sortable="true"
-                                data-footer-formatter="[Date]">Date
-                            </th>
-                            <th data-field="action" data-align="center" data-footer-formatter="[Actions]"
-                                data-events="operateEvents" data-formatter="actionFormatter">Action
-                            </th>
-                        </tr>
-                        </thead>
-
-                    </table>
-                </div>
+  <div id="customer">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Customers</h4>
+            <div class="card-tools" style="position: absolute;right: 1rem;top: .5rem;">
+              <button type="button"
+                class="btn btn-info"
+                data-toggle="modal"
+                data-target="#customerModal"
+                >
+                Add New
+                <i class="fas fa-plus"></i>
+              </button>
+              <button type="button" class="btn btn-primary" @click="reload">
+                Reload
+                <i class="fas fa-sync"></i>
+              </button>
             </div>
+          </div>
+
+          <div class="card-body">
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-md-2">
+                  <strong>Search By :</strong>
+                </div>
+                <div class="col-md-3">
+                  <select v-model="queryFiled" class="form-control" id="fileds">
+                    <option value="name">Name</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                    <option value="address">Address</option>
+                    <option value="total">Total</option>
+                  </select>
+                </div>
+                <div class="col-md-7">
+                  <input v-model="query" type="text" class="form-control" placeholder="Search">
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Langage</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col" class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-show="customers.length"
+                    v-for="(customer, index) in customers"
+                    :key="customer.id"
+                  >
+                    <th scope="row">{{ index + 1 }}</th>
+                    <td>{{ customer.name}}</td>
+                    <td>{{ customer.lastname }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.gender }}</td>
+                    <td>{{ customer.language }}</td>
+                    <td>{{ customer.phone_regular }}</td>
+
+                    <td class="text-center">
+                      <button type="button"
+                       class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button type="button"
+                        @click="edit(customer)"
+                        class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        type="button"
+                        @click="destroy(customer)"
+                        class="btn btn-danger btn-sm"
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr v-show="!customers.length">
+                    <td colspan="6">
+                      <div class="alert alert-danger" role="alert">Sorry :( No data found.</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination
+                v-if="pagination.last_page > 1"
+                :pagination="pagination"
+                :offset="5"
+                @paginate="query === '' ? getData() : searchData()"
+              ></pagination>
+            </div>
+          </div>
         </div>
-
-        <sweet-modal icon="success" ref="successModal">
-            Client Supprimé avec succes!!
-        </sweet-modal>
-
-        <sweet-modal icon="error" title="Echec" ref="errorModal">
-            Une erreur s'est produite
-        </sweet-modal>
-
-
+      </div>
     </div>
+    <!-- Modal -->
+
+    <div
+      class="modal fade"
+      id="showModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="showModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="showModalLabel"></h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <br>
+            <br>
+            <br>
+            <strong>Address :</strong>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <sweet-modal icon="success" ref="successModal">
+      Client Supprimé avec succes!!
+    </sweet-modal>
+
+    <sweet-modal icon="error" title="Echec" ref="errorModal">
+      Une erreur s'est produite
+    </sweet-modal>
+  </div>
 </template>
+
 <script>
+import Pagination from '../partial/PaginationComponent';
+export default {
+  components:{
+    Pagination
+  },
+  data() {
+    return {
+      editMode: false,
+      query: "",
+      queryFiled: "name",
+      customers: [],
+     /* form: new Form({
+        id: "",
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        total: ""
+      }),*/
+      pagination: {
+        current_page: 1
+      }
+    };
+  },
+  watch: {
+    query: function(newQ, old) {
+      if (newQ === "") {
+        this.getData();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      //this.$Progress.start();
+      axios
+        .get("customers/data-table?page=" + this.pagination.current_page)
+        .then(response => {
+          console.log(response.data.data)
+          this.customers = response.data.data;
+          this.pagination = response.data;
+          //console;log(this.pagination.last_page)
+          // this.$Progress.finish();
+        })
+        .catch(e => {
+          console.log(e);
+          // this.$Progress.fail();
+        });
+    },
+    showCustomer(customer){
+    $("#showModal").modal("show");
 
-    export default {
+    },
+    searchData() {
+  //  this.$Progress.start();
+      axios
+        .get(
+          "search/customers/" +
+            this.queryFiled +
+            "/" +
+            this.query +
+            "?page=" +
+            this.pagination.current_page
+        )
+        .then(response => {
+          this.customers = response.data.data;
+          this.pagination = response.data.meta;
+          // this.$Progress.finish();
+        })
+        .catch(e => {
+          console.log(e);
+          // this.$Progress.fail();
+        });
+    },
+    reload() {
+      this.getData();
+      this.query = "";
+      this.queryFiled = "name";
+     // this.$snotify.success("Data Successfully Refresh", "Success");
+    },
+    /*
+    create() {
+      this.editMode = false;
+      this.form.reset();
+      this.form.clear();
+      $("#customerModalLong").modal("show");
+    }
+    */
+    store() {
+    //  //// this.$Progress.start();
+     // this.form.busy = true;
+      //this.form
+       // .post("/api/customers")
+        //.then(response => {
+          //this.getData();
+         // $("#customerModalLong").modal("hide");
+          //if (this.form.successful) {
+          //  // this.$Progress.finish();
+           //// this.$snotify.success("Customer Successfully Saved", "Success");
+         // } else {
+         //   // this.$Progress.fail();
+        //   // this.$snotify.error(
+          //    "Something went wrong try again later.",
+            //  "Error"
+            //);
+         // }
+        //})
+        //.catch(e => {
+         // // this.$Progress.fail();
+         // console.log(e);
+        //});
+    },
+//    show(customer) {
+    //  this.form.reset();
+      //this.form.fill(customer);
+     // $("#showModal").modal("show");
+  //    console.log(customer);
+   // },
+    edit(customer) {
+      this.editMode = true;
+      //this.form.reset();
+      //this.form.clear();
+      //this.form.fill(customer);
+     // $("#customerModalLong").modal("show");
+    },
+    update() {
+      //// this.$Progress.start();
+      //this.form.busy = true;
+      //this.form
+       // .put("/api/customers/" + this.form.id)
+      //  .then(response => {
+       //   this.getData();
+       //   $("#customerModalLong").modal("hide");
+        //  if (this.form.successful) {
+         //   // this.$Progress.finish();
+         //  // this.$snotify.success("Customer Successfully Updated", "Success");
+         // } else {
+          //  // this.$Progress.fail();
+           //// this.$snotify.error(
+            //  "Something went wrong try again later.",
+             // "Error"
+            //);
+         // }
+        //})
+       // //.catch(e => {
+         // // this.$Progress.fail();
+         // console.log(e);
+       // });
+    },
+    destroy(customer) {
+      let id=customer.id;
+      console.log(id);
+      swal({
+        title: 'Etes vous sure?',
+        text: "La suppression est irréversible",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        customClass: 'swal-overlay',
+        showLoaderOnConfirm: true,
+        preConfirm: (login) => {
+        return axios.delete(`customers/${id}`)
+          .then(response => {
+              //console.log(response);
+              return response;
+              this.getData();
+          })
+          .catch(error => {
+            swal.showValidationMessage( `Oops!! Operation de suppression echouée; erreur: ${error}` )
+           this.getData();
 
-        props: {
-            url: {
-                type: String
-            },
-            columns: {
-                type: Array
-            }
-
+          })
         },
-        mounted() {
-
-            $('#fresh-table').bootstrapTable()
-            let self = this;
-            $('body').on('click', '.delete-customer', function () {
-                let customer_id = $(this).data('id')
-                /*  $('body').loadingModal({
-                      position: 'auto',
-                      text: 'Suppression du client en cours',
-                      color: '#fff',
-                      opacity: '0.7',
-                      backgroundColor: '#6777ef',
-                      animation: 'cubeGrid'
-                  });*/
-
-                swal({
-                    title: 'Etes vous sure?',
-                    text: "La suppression est irréversible",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Oui',
-                    customClass: 'swal-overlay',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        return axios.delete(`customers/${customer_id}`)
-                            .then(response => {
-                                return response
-                            })
-                            .catch(error => {
-                                swal.showValidationMessage(
-                                    `Oops!! Operation de suppression echouée; erreur: ${error}`
-                                )
-                            })
-                    },
-                    allowOutsideClick: () => !swal.isLoading()
-                }).then((result) => {
-                        $('#fresh-table').bootstrapTable('refresh')
-                        self.$refs.successModal.open()
-                });
-                /*axios.delete(`customer/${customer_id}`).then(result => {
-                    $('body').loadingModal('hide');
-                    $('#fresh-table').bootstrapTable('refresh')
-                    self.$refs.successModal.open()
-                }).catch(error => {
-                    $('body').loadingModal('hide');
-                    self.$refs.errorModal.open()
-                })*/
-            })
+          allowOutsideClick: () => !swal.isLoading()
+          }).then((result) => {
+        //  console.log(result)
+          if (result.value){
+            $('#customer').bootstrapTable('refresh')
+            self.$refs.successModal.open()
         }
+      });
+
     }
+  },
+
+};
 </script>
-
-<style lang="scss">
-
-    #bTable {
-
-        @import "../../../sass/bootstrap-table/fresh-bootstrap-table.scss";
-
-        input, th span {
-            cursor: pointer;
-        }
-
-        .pull-right {
-            float: right;
-        }
-
-        .pull-left {
-            float: left;
-        }
-
-        .table > thead > tr > th {
-            color: white !important;
-        }
-
-        .fresh-table.toolbar-color-blue thead, .fixed-table-footer table tbody {
-            background: #4087ea;
-            background: -moz-radial-gradient(center, ellipse cover, #533ce1 0%, #4087ea 100%);
-            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #533ce1), color-stop(100%, #4087ea));
-            background: -webkit-radial-gradient(center, ellipse cover, #533ce1 0%, #4087ea 100%);
-            background: -o-radial-gradient(center, ellipse cover, #533ce1 0%, #4087ea 100%);
-            background: -ms-radial-gradient(center, ellipse cover, #533ce1 0%, #4087ea 100%);
-            background: radial-gradient(ellipse at center, #533ce1 0%, #4087ea 100%) !important;
-            background-size: auto auto !important;
-            background-size: 250% 250% !important;
-        }
-
-
-        .fixed-table-footer table tbody tr {
-            background: #4087ea !important;
-        }
-
-        .bootstrap-table .table {
-            border-bottom: inherit !important;
-        }
-
-        .page-item.active .page-link {
-            background-color: #6777ef !important;
-            border-color: #6777ef !important;
-        }
-
-        .fresh-table[class*="full-color-"] .fixed-table-header, .fresh-table[class*="full-color-"] .fixed-table-body, .fresh-table[class*="full-color-"] table {
-            font-weight: bold !important;
-        }
-
-        .fixed-table-footer table tbody tr td .th-inner {
-            background-color: transparent !important;
-
-            color: white !important;
-            font-weight: bolder;
-        }
-
-        .fixed-table-container tbody tr:first-child td {
-            border-top: 1px solid #ccc !important;
-        }
-
-        .fresh-table[class*="full-color-"] .form-control, .fresh-table[class*="toolbar-color-"] .form-control {
-            color: #000 !important;
-        }
-
-        .show > .dropdown-menu {
-            overflow: hidden;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
-        .btn-toolbar {
-            display: none;
-        }
-
-        .table-hover > tbody > tr:hover {
-            background-color: #efeded !important;
-        }
-
-        .btn-danger:hover, .btn-primary:hover {
-            color: white;
-        }
-
-        .fresh-table .fixed-table-toolbar {
-            border-radius: 0;
-        }
-
-        .btn.btn-sm {
-            padding: .10rem .4rem !important;
-            font-size: 12px;
-        }
-
-        .fresh-table .table > thead > tr > th {
-            border: none;
-        }
-
-        .fresh-table .bootstrap-table .table > tbody > tr > td {
-            border: 1px solid #ddd !important;
-        }
-
-        .page-item.active .page-link{
-            color: white !important;
-        }
-
-        .fixed-table-footer .table-hover > tbody > tr:hover{
-            background: #4087ea !important;
-        }
-    }
-
-    .dropdown-menu.pull-right {
-        right: 0 !important;
-        left: auto !important;
-        transform: none !important;
-        top: auto !important;
-        width: auto;
-    }
-
-    .dropdown-menu.pull-right > li > a {
-        color: black;
-    }
-</style>
